@@ -11,7 +11,7 @@
 
 #include "insertion_sort.h"
 #include "merge_sort.h"
-#include "heap_sort.h"
+//#include "heap_sort.h"
 
 using std::vector;
 using std::cout;
@@ -41,6 +41,33 @@ test_set get_tests(size_t size) {
     return result;
 }
 
+void bubble_sort(std::vector<int>& a) {
+    for (int i = 0; i < a.size(); ++i) {
+        for (int j = 0; j < a.size() - 1; ++j) {
+            if (a[j] > a[j + 1]) {
+                std::swap(a[j], a[j + 1]);
+            }
+        }
+    }
+}
+
+void heap_sort(std::vector<int>& a) {
+    for (int i = 0; i < a.size(); ++i) {
+        int n = i;
+        while ((n != 0) && (a[n] < a[(n - 1) / 2])) {
+            std::swap(a[n], a[(n - 1) / 2]);
+            n = (n - 1) / 2;
+        }
+    }
+    for (int i = a.size(); i > 0; --i) {
+        std::swap(a[i], a[0]);
+        int n = 0;
+        while (true) {
+            int c1 = 2 * n + 1, c2 = 2 * n + 2;
+        }
+    }
+}
+
 int main(int, const char *argv[]) {
     map<string, std::function<void(vector<int>&)>> sorts;
 
@@ -49,6 +76,7 @@ int main(int, const char *argv[]) {
     sorts["insertion"] = insertion_sort;
     sorts["merge"] = merge_sort;
     sorts["heap"] = heap_sort;
+    sorts["bubble"] = bubble_sort;
 
     auto sort = sorts[argv[1]];
     auto size = std::stoi(argv[2]);
